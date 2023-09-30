@@ -1,4 +1,5 @@
 <?php require "header/nav.php" ?>
+<?php require "config/config.php" ?>
 
 
 <?php
@@ -12,12 +13,29 @@
       $hash_password = password_hash($password,PASSWORD_BCRYPT);
 
 
+	  if(empty($userName) || empty($email) || empty($password))
+	  {
+		echo "<script>alert('Kindly fill all the fields')</script>";
+	  }
+	  else
+	  {
+	
+		$register_user_query = "INSERT INTO `register_user`(`user_name`, `user_email`, `user_password`) VALUES (:userName, :userEmail, :userPassword)";
+
+		$register_user_prepare = $connection->prepare($register_user_query);
+		$register_user_prepare->bindParam(':userName',$userName);
+		$register_user_prepare->bindParam(':userEmail',$email);
+		$register_user_prepare->bindParam(':userPassword',$hash_password );
+		$register_user_prepare->execute();
+	  }
 
 
 
 
 
-	  
+
+
+
     }
 
 

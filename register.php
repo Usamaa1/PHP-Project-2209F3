@@ -4,6 +4,19 @@
 
 <?php
 
+
+
+	$fetch_register_query = "SELECT * FROM `register_user`";
+	$fetch_register_prepare = $connection->prepare($fetch_register_query);
+	$fetch_register_prepare->execute();
+
+	$register_data = $fetch_register_prepare->fetchAll(PDO::FETCH_ASSOC);
+
+	print_r($register_data);
+
+
+
+
     if(isset($_POST['register']))
     {
       $userName = $_POST['userName'];
@@ -19,6 +32,15 @@
 	  }
 	  else
 	  {
+
+
+		foreach($register_data as $user){
+			if($user['user_email'] === $email){
+				echo "<script>alert('Email already exists!')</script>";
+			}
+		}
+
+
 	
 		$register_user_query = "INSERT INTO `register_user`(`user_name`, `user_email`, `user_password`) VALUES (:userName, :userEmail, :userPassword)";
 
@@ -27,14 +49,13 @@
 		$register_user_prepare->bindParam(':userEmail',$email);
 		$register_user_prepare->bindParam(':userPassword',$hash_password );
 		$register_user_prepare->execute();
+
+
+
+
+
+
 	  }
-
-
-
-
-
-
-
 
     }
 

@@ -1,3 +1,64 @@
+<?php require "header/nav.php" ?>
+<?php require "config/config.php" ?>
+
+
+<?php
+
+
+
+$fetch_register_query = "SELECT * FROM `register_user`";
+$fetch_register_prepare = $connection->prepare($fetch_register_query);
+$fetch_register_prepare->execute();
+
+$register_data = $fetch_register_prepare->fetchAll(PDO::FETCH_ASSOC);
+
+print_r($register_data);
+
+
+
+
+if (isset($_POST['login'])) {
+	$email = $_POST['email'];
+	$password = $_POST['password'];
+
+	$hash_password = password_hash($password, PASSWORD_BCRYPT);
+
+
+	if (empty($email) || empty($password)) {
+		echo "<script>alert('Kindly fill all the fields')</script>";
+	} else {
+
+		$isEmailExist = true;
+
+		foreach ($register_data as $user) {
+			if ($user['user_email'] === $email && $user['user_password']) 
+			{
+				header('location:index.php');
+				return;
+			} 
+			else 
+			{
+				$isEmailExist = false;
+			}
+		}
+
+
+		if(!$isEmailExist)
+		{
+			
+		}
+
+
+
+
+
+	}
+}
+
+
+
+
+?>
 
 
     <section class="home-slider owl-carousel">
@@ -54,7 +115,7 @@
       </div>
     </section> <!-- .section -->
 
-
+	<?php require "header/footer.php" ?>
 
   <script>
 		$(document).ready(function(){

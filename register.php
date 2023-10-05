@@ -53,6 +53,7 @@ if (isset($_POST['register'])) {
 				$register_user_prepare->bindParam(':userEmail', $email);
 				$register_user_prepare->bindParam(':userPassword', $hash_password);
 				$register_user_prepare->execute();
+				header('location:login.php');
 		}
 
 

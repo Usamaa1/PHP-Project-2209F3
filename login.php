@@ -21,7 +21,7 @@ if (isset($_POST['login'])) {
 	$email = $_POST['email'];
 	$password = $_POST['password'];
 
-	$hash_password = password_hash($password, PASSWORD_BCRYPT);
+	
 
 
 	if (empty($email) || empty($password)) {
@@ -31,7 +31,7 @@ if (isset($_POST['login'])) {
 		$isEmailExist = true;
 
 		foreach ($register_data as $user) {
-			if ($user['user_email'] === $email && $user['user_password']) 
+			if ($user['user_email'] === $email && password_verify($password, $user['user_password'])) 
 			{
 				header('location:index.php');
 				return;
@@ -45,6 +45,7 @@ if (isset($_POST['login'])) {
 
 		if(!$isEmailExist)
 		{
+		echo "<script>alert('Either email or password is incorrect')</script>";
 			
 		}
 
@@ -82,27 +83,27 @@ if (isset($_POST['login'])) {
       <div class="container">
         <div class="row">
           <div class="col-md-12 ftco-animate">
-			<form action="#" class="billing-form ftco-bg-dark p-3 p-md-5">
+			<form action="login.php" method="post" class="billing-form ftco-bg-dark p-3 p-md-5">
 				<h3 class="mb-4 billing-heading">Login</h3>
 	          	<div class="row align-items-end">
 	          		<div class="col-md-12">
 	                <div class="form-group">
 	                	<label for="Email">Email</label>
-	                  <input type="text" class="form-control" placeholder="Email">
+	                  <input type="text" name="email" class="form-control" placeholder="Email">
 	                </div>
 	              </div>
                  
 	              <div class="col-md-12">
 	                <div class="form-group">
 	                	<label for="Password">Password</label>
-	                    <input type="password" class="form-control" placeholder="Password">
+	                    <input type="password" name="password" class="form-control" placeholder="Password">
 	                </div>
 
                 </div>
                 <div class="col-md-12">
                 	<div class="form-group mt-4">
 							<div class="radio">
-                                <button class="btn btn-primary py-3 px-4">Login</button>
+                                <button type="submit" name="login" class="btn btn-primary py-3 px-4">Login</button>
 						    </div>
 					</div>
                 </div>

@@ -1,4 +1,7 @@
 <?php
+session_start();
+?>
+<?php
 ob_start();
 ?>
 <!DOCTYPE html>
@@ -46,9 +49,36 @@ ob_start();
 	          <li class="nav-item"><a href="about.php" class="nav-link">About</a></li>
 	         
 	          <li class="nav-item"><a href="contact.php" class="nav-link">Contact</a></li>
+
+            <?php if(isset($_SESSION['userId'])){ ?>
+
+
 	          <li class="nav-item cart"><a href="cart.php" class="nav-link"><span class="icon icon-shopping_cart"></span></a>
+
+
+
+            <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <?php echo $_SESSION['userName'] ?>
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Action</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="header/logout.php">Logout</a></li>
+          </ul>
+        </li>
+
+        <?php 
+        }
+        else
+        {
+        ?>
+
 			  <li class="nav-item"><a href="login.php" class="nav-link">login</a></li>
 			  <li class="nav-item"><a href="register.php" class="nav-link">register</a></li>
+
+
+        <?php } ?>
 
 	        </ul>
 	      </div>

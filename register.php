@@ -4,6 +4,10 @@
 
 <?php
 
+if(isset($_SESSION['userId'])){
+	header('location:index.php');
+	
+}else{
 
 
 $fetch_register_query = "SELECT * FROM `register_user`";
@@ -12,7 +16,7 @@ $fetch_register_prepare->execute();
 
 $register_data = $fetch_register_prepare->fetchAll(PDO::FETCH_ASSOC);
 
-print_r($register_data);
+// print_r($register_data);
 
 
 
@@ -64,7 +68,7 @@ if (isset($_POST['register'])) {
 }
 
 
-
+}
 
 ?>
 

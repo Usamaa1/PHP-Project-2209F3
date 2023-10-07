@@ -5,56 +5,70 @@
 <?php
 
 
+	if(isset($_SESSION['userId'])){
+		header('location:index.php');
 
-$fetch_register_query = "SELECT * FROM `register_user`";
-$fetch_register_prepare = $connection->prepare($fetch_register_query);
-$fetch_register_prepare->execute();
+	}else{
 
-$register_data = $fetch_register_prepare->fetchAll(PDO::FETCH_ASSOC);
-
-print_r($register_data);
-
-
-
-
-if (isset($_POST['login'])) {
-	$email = $_POST['email'];
-	$password = $_POST['password'];
-
-	
-
-
-	if (empty($email) || empty($password)) {
-		echo "<script>alert('Kindly fill all the fields')</script>";
-	} else {
-
-		$isEmailExist = true;
-
-		foreach ($register_data as $user) {
-			if ($user['user_email'] === $email && password_verify($password, $user['user_password'])) 
-			{
-				header('location:index.php');
-				return;
-			} 
-			else 
-			{
-				$isEmailExist = false;
+		$fetch_register_query = "SELECT * FROM `register_user`";
+		$fetch_register_prepare = $connection->prepare($fetch_register_query);
+		$fetch_register_prepare->execute();
+		
+		$register_data = $fetch_register_prepare->fetchAll(PDO::FETCH_ASSOC);
+		
+		// print_r($register_data);
+		
+		
+		
+		
+		if (isset($_POST['login'])) {
+			$email = $_POST['email'];
+			$password = $_POST['password'];
+		
+			
+		
+		
+			if (empty($email) || empty($password)) {
+				echo "<script>alert('Kindly fill all the fields')</script>";
+			} else {
+		
+				$isEmailExist = true;
+		
+				foreach ($register_data as $user) {
+					if ($user['user_email'] === $email && password_verify($password, $user['user_password'])) 
+					{
+						$_SESSION['userId'] = $user['user_id'];
+						$_SESSION['userName'] = $user['user_name'];
+						$_SESSION['userEmail'] = $user['user_email'];
+		
+						header('location:index.php');
+						return;
+					} 
+					else 
+					{
+						$isEmailExist = false;
+					}
+				}
+		
+		
+				if(!$isEmailExist)
+				{
+				echo "<script>alert('Either email or password is incorrect')</script>";
+					
+				}
+		
+		
+		
+		
+		
 			}
 		}
-
-
-		if(!$isEmailExist)
-		{
-		echo "<script>alert('Either email or password is incorrect')</script>";
-			
-		}
-
-
-
-
-
+		
+		
 	}
-}
+
+
+
 
 
 

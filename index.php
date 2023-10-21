@@ -20,16 +20,16 @@
 
 	    			
 
- $book_table_query = "INSERT INTO `book_table`(`first_name`, `last_name`, `date`, `time`, `message`, `phone`, `user_id`) 
-   VALUES (:firstName,:lastName,:date,:time,:message,:phone,:userId)";
-   $book_table_prepare = $connection->prepare($book_table_query);
-   $book_table_prepare->bindParam(':firstName',$firstName);
-   $book_table_prepare->bindParam(':lastName',$lastName);
-   $book_table_prepare->bindParam(':date',$date);
-   $book_table_prepare->bindParam(':time',$time);
-   $book_table_prepare->bindParam(':message',$message);
-   $book_table_prepare->bindParam(':phone',$phone);
-   $book_table_prepare->bindParam(':userId',$userId);
+		$book_table_query = "INSERT INTO `book_table`(`first_name`, `last_name`, `date`, `time`, `message`, `phone`, `user_id`) 
+		VALUES (:firstName,:lastName,:date,:time,:message,:phone,:userId)";
+		$book_table_prepare = $connection->prepare($book_table_query);
+		$book_table_prepare->bindParam(':firstName',$firstName);
+		$book_table_prepare->bindParam(':lastName',$lastName);
+		$book_table_prepare->bindParam(':date',$date);
+		$book_table_prepare->bindParam(':time',$time);
+		$book_table_prepare->bindParam(':message',$message);
+		$book_table_prepare->bindParam(':phone',$phone);
+		$book_table_prepare->bindParam(':userId',$userId);
 
    $book_table_prepare->execute();
 
@@ -143,7 +143,7 @@
 		    				<div class="form-group">
 		    					<div class="input-wrap">
 		            		<div class="icon"><span class="ion-md-calendar"></span></div>
-		            		<input type="text" name="date" class="form-control appointment_date" placeholder="Date">
+		            		<input type="text" name="date" data-date-start-date="1d" class="form-control appointment_date" placeholder="Date">
 	            		</div>
 		    				</div>
 		    				<div class="form-group ml-md-4">

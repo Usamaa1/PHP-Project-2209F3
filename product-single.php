@@ -1,6 +1,23 @@
 <?php require "header/nav.php" ?>
 <?php require "config/config.php" ?>
 
+
+<?php 
+
+	$id = $_GET['id'];
+
+	$single_product_query = "SELECT * FROM `products` where prod_id = :id";
+
+	$single_product_prepare = $connection->prepare($single_product_query);
+	$single_product_prepare->bindParam(':id', $id);
+	$single_product_prepare->execute();
+	$single_product = $single_product_prepare->fetch(PDO::FETCH_ASSOC);
+	print_r($single_product);
+
+
+
+?>
+
     <section class="home-slider owl-carousel">
 
       <div class="slider-item" style="background-image: url(images/bg_3.jpg);" data-stellar-background-ratio="0.5">
@@ -22,14 +39,13 @@
     	<div class="container">
     		<div class="row">
     			<div class="col-lg-6 mb-5 ftco-animate">
-    				<a href="images/menu-2.jpg" class="image-popup"><img src="images/menu-2.jpg" class="img-fluid" alt="Colorlib Template"></a>
+    				<a href="images/<?php echo $single_product['prod_image'] ?>" class="image-popup"><img src="images/<?php echo $single_product['prod_image'] ?>" class="img-fluid" alt="Colorlib Template"></a>
     			</div>
     			<div class="col-lg-6 product-details pl-md-5 ftco-animate">
-    				<h3>Creamy Latte Coffee</h3>
-    				<p class="price"><span>$4.90</span></p>
-    				<p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
-    				<p>On her way she met a copy. The copy warned the Little Blind Text, that where it came from it would have been rewritten a thousand times and everything that was left from its origin would be the word "and" and the Little Blind Text should turn around and return to its own, safe country. But nothing the copy said could convince her and so it didn’t take long until a few insidious Copy Writers ambushed her, made her drunk with Longe and Parole and dragged her into their agency, where they abused her for their.
-						</p>
+    				<h3><?php echo $single_product['prod_name'] ?></h3>
+    				<p class="price"><span>$<?php echo $single_product['prod_price'] ?></span></p>
+    				<p><?php echo $single_product['prod_description'] ?></p>
+    			
 						<div class="row mt-4">
 							<div class="col-md-6">
 								<div class="form-group d-flex">

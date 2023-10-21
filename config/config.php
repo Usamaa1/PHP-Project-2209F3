@@ -1,7 +1,7 @@
 <?php
 
 
-define('server','mysql:host=localhost;dbname=coffee-blend');
+define('server','mysql:host=localhost;dbname=coffee-blend-2209f3');
 define('user','root');
 define('password','');
 

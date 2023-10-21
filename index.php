@@ -1,50 +1,55 @@
 <?php require "header/nav.php" ?>
-<?php require "config/config.php"?>
+<?php require "config/config.php" ?>
 <?php 
 
+if(isset($_POST['appointment'])){
 
-	if(isset($_POST['appointment']))
-	{
-
-
-		if(isset($_SESSION['userId']))
-		{
-
-		$firstName =$_POST['firstName'];
-		$lastName =$_POST['lastName'];
-		$date =$_POST['date'];
-		$time =$_POST['time'];
-		$phone =$_POST['phone'];
-		$message =$_POST['message'];
-		$userId = $_SESSION['userId']; 
-
-	    			
-
-		$book_table_query = "INSERT INTO `book_table`(`first_name`, `last_name`, `date`, `time`, `message`, `phone`, `user_id`) 
-		VALUES (:firstName,:lastName,:date,:time,:message,:phone,:userId)";
-		$book_table_prepare = $connection->prepare($book_table_query);
-		$book_table_prepare->bindParam(':firstName',$firstName);
-		$book_table_prepare->bindParam(':lastName',$lastName);
-		$book_table_prepare->bindParam(':date',$date);
-		$book_table_prepare->bindParam(':time',$time);
-		$book_table_prepare->bindParam(':message',$message);
-		$book_table_prepare->bindParam(':phone',$phone);
-		$book_table_prepare->bindParam(':userId',$userId);
-
-   $book_table_prepare->execute();
-
-		}
-		else
-		{
-			echo "<script>alert('Kindly login to book a table')</script>";
-		}
+if(isset($_SESSION['userId'])){
 
 
-		}
+	$firstName =$_POST['firstName'];
+	$lastName =$_POST['lastName'];
+	$date =$_POST['date'];
+	$time =$_POST['time'];
+	$phone =$_POST['phone'];
+	$message =$_POST['message'];
+	$userId = $_SESSION['userId'];
+	
+						
+	
+	
+	
+	
+	 $book_table_query = "INSERT INTO `book_table`(`first_name`, `last_name`, `date`, `time`, `message`, `phone`, `user_id`) 
+	   VALUES (:firstName,:lastName,:date,:time,:message,:phone,:userId)";
+	   $book_table_prepare = $connection->prepare($book_table_query);
+	   $book_table_prepare->bindParam(':firstName',$firstName);
+	   $book_table_prepare->bindParam(':lastName',$lastName);
+	   $book_table_prepare->bindParam(':date',$date);
+	   $book_table_prepare->bindParam(':time',$time);
+	   $book_table_prepare->bindParam(':message',$message);
+	   $book_table_prepare->bindParam(':phone',$phone);
+	   $book_table_prepare->bindParam(':userId',$userId);
+
+	   $book_table_prepare->execute();
+}
+else{
+	echo"<script>alert('login to book a table ')</script>";
+}
+
+}
+  
 
 
 
 
+
+
+$product_query = "SELECT * FROM `products`";
+$product_prepare = $connection->prepare($product_query);
+$product_prepare->execute();
+$products_data = $product_prepare->fetchAll(PDO::FETCH_ASSOC);
+print_r($products_data);
   
 
 ?>
@@ -93,6 +98,7 @@
               <p class="mb-4 mb-md-5">A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
               <p><a href="#" class="btn btn-primary p-3 px-xl-4 py-xl-3">Order Now</a> <a href="#" class="btn btn-white btn-outline-white p-3 px-xl-4 py-xl-3">View Menu</a></p>
             </div>
+			
 
           </div>
         </div>
@@ -149,7 +155,7 @@
 		    				<div class="form-group ml-md-4">
 		    					<div class="input-wrap">
 		            		<div class="icon"><span class="ion-ios-clock"></span></div>
-		            		<input type="text" name="time" class="form-control appointment_time" placeholder="Time">
+		            		<input type="text" name="time"  class="form-control appointment_time" placeholder="Time">
 	            		</div>
 		    				</div>
 		    				<div class="form-group ml-md-4">
@@ -321,50 +327,19 @@
           </div>
         </div>
         <div class="row">
+        	<?php foreach($products_data as $prod_data){?>
         	<div class="col-md-3">
         		<div class="menu-entry">
-    					<a href="#" class="img" style="background-image: url(images/menu-1.jpg);"></a>
+    					<a href="#" class="img" style="background-image: url(images/<?php echo  $prod_data['prod_image'] ?>);"></a>
     					<div class="text text-center pt-4">
-    						<h3><a href="#">Coffee Capuccino</a></h3>
-    						<p>A small river named Duden flows by their place and supplies</p>
-    						<p class="price"><span>$5.90</span></p>
-    						<p><a href="#" class="btn btn-primary btn-outline-primary">Add to Cart</a></p>
+    						<h3><a href="#"><?php echo  $prod_data['prod_name'] ?> </a></h3>
+    						<p><?php echo  $prod_data['prod_description'] ?></p>
+    						<p class="price"><span>$<?php echo  $prod_data['prod_price'] ?></span></p>
+    						<p><a href="product-single.php?id=<?php echo  $prod_data['prod_id'] ?>" class="btn btn-primary btn-outline-primary">Add to Cart</a></p>
     					</div>
     				</div>
         	</div>
-        	<div class="col-md-3">
-        		<div class="menu-entry">
-    					<a href="#" class="img" style="background-image: url(images/menu-2.jpg);"></a>
-    					<div class="text text-center pt-4">
-    						<h3><a href="#">Coffee Capuccino</a></h3>
-    						<p>A small river named Duden flows by their place and supplies</p>
-    						<p class="price"><span>$5.90</span></p>
-    						<p><a href="#" class="btn btn-primary btn-outline-primary">Add to Cart</a></p>
-    					</div>
-    				</div>
-        	</div>
-        	<div class="col-md-3">
-        		<div class="menu-entry">
-    					<a href="#" class="img" style="background-image: url(images/menu-3.jpg);"></a>
-    					<div class="text text-center pt-4">
-    						<h3><a href="#">Coffee Capuccino</a></h3>
-    						<p>A small river named Duden flows by their place and supplies</p>
-    						<p class="price"><span>$5.90</span></p>
-    						<p><a href="#" class="btn btn-primary btn-outline-primary">Add to Cart</a></p>
-    					</div>
-    				</div>
-        	</div>
-        	<div class="col-md-3">
-        		<div class="menu-entry">
-    					<a href="#" class="img" style="background-image: url(images/menu-4.jpg);"></a>
-    					<div class="text text-center pt-4">
-    						<h3><a href="#">Coffee Capuccino</a></h3>
-    						<p>A small river named Duden flows by their place and supplies</p>
-    						<p class="price"><span>$5.90</span></p>
-    						<p><a href="#" class="btn btn-primary btn-outline-primary">Add to Cart</a></p>
-    					</div>
-    				</div>
-        	</div>
+			<?php } ?>
         </div>
     	</div>
     </section>
@@ -488,7 +463,6 @@
 	    </div>
 	  </section>
 	  <?php require "header/footer.php" ?>
-
 
    
 

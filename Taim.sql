@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 28, 2023 at 03:58 PM
--- Server version: 10.4.27-MariaDB
--- PHP Version: 8.2.0
+-- Generation Time: Oct 17, 2023 at 03:59 PM
+-- Server version: 10.4.24-MariaDB
+-- PHP Version: 8.1.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -36,7 +36,7 @@ CREATE TABLE `book_table` (
   `message` text NOT NULL,
   `phone` bigint(20) NOT NULL,
   `user_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `book_table`
@@ -45,29 +45,6 @@ CREATE TABLE `book_table` (
 INSERT INTO `book_table` (`booking_id`, `first_name`, `last_name`, `date`, `time`, `message`, `phone`, `user_id`) VALUES
 (1, 'Ali', 'Ahmed', '10/17/2023', '1:00am', 'ddfdddddddd', 923328829805, 13),
 (2, 'Ali', 'Ahmed', '10/17/2023', '1:00am', 'ddfdddddddd', 923328829805, 13);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `cart`
---
-
-CREATE TABLE `cart` (
-  `cart_id` int(11) NOT NULL,
-  `prod_name` varchar(200) NOT NULL,
-  `prod_description` text NOT NULL,
-  `prod_price` float NOT NULL,
-  `prod_quantity` int(11) NOT NULL,
-  `prod_image` varchar(200) NOT NULL,
-  `user_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `cart`
---
-
-INSERT INTO `cart` (`cart_id`, `prod_name`, `prod_description`, `prod_price`, `prod_quantity`, `prod_image`, `user_id`) VALUES
-(1, 'Americano', 'An Americano is made by diluting a shot of espresso with hot water, resulting in a milder coffee with a flavor similar to drip coffee.\r\n', 34.89, 1, 'menu-2.jpg', 14);
 
 -- --------------------------------------------------------
 
@@ -82,7 +59,7 @@ CREATE TABLE `products` (
   `prod_price` float NOT NULL,
   `prod_image` varchar(200) NOT NULL,
   `prod_type` varchar(200) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `products`
@@ -114,7 +91,7 @@ CREATE TABLE `register_user` (
   `user_email` varchar(200) NOT NULL,
   `user_password` varchar(200) NOT NULL,
   `register_date` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `register_user`
@@ -132,8 +109,7 @@ INSERT INTO `register_user` (`user_id`, `user_name`, `user_email`, `user_passwor
 (10, 'mustijab', 'mk@gmail.com', '$2y$10$lLtNQLwikGGizXwM.kUxr.ziqFFcEs1yt4PlyF68aNMm1K58S0Vb6', '2023-10-05 12:58:41'),
 (11, 'Ikram', 'ik@gmail.com', '$2y$10$/J7JpeiTHyWH.Z53kC.fdOuNsRmPgdhdxTfruGBOiyeAoB44zUIo.', '2023-10-07 12:15:16'),
 (12, 'MK1', 'MK1@gmail.com', '$2y$10$.Cv3LcfNJZqDrwJRt3gDYuykvySWGPzWiRzer.cjfSQ/gJFOj3jJi', '2023-10-10 12:17:58'),
-(13, 'Ali', 'Ali@gmail.com', '$2y$10$RuDGQAyURD6Y3FfZM7s80O.X81ltmxe66XetoU75RB7qkA1jt1FQq', '2023-10-17 11:16:04'),
-(14, 'taimoor', 't3@gmail.com', '$2y$10$hgyMHgcBHH0vSptsV8igSeeDnMEsNfKpT8InFBd4FppGviZ7AHkVK', '2023-10-28 13:17:53');
+(13, 'Ali', 'Ali@gmail.com', '$2y$10$RuDGQAyURD6Y3FfZM7s80O.X81ltmxe66XetoU75RB7qkA1jt1FQq', '2023-10-17 11:16:04');
 
 --
 -- Indexes for dumped tables
@@ -144,13 +120,6 @@ INSERT INTO `register_user` (`user_id`, `user_name`, `user_email`, `user_passwor
 --
 ALTER TABLE `book_table`
   ADD PRIMARY KEY (`booking_id`);
-
---
--- Indexes for table `cart`
---
-ALTER TABLE `cart`
-  ADD PRIMARY KEY (`cart_id`),
-  ADD KEY `user_id` (`user_id`);
 
 --
 -- Indexes for table `products`
@@ -175,12 +144,6 @@ ALTER TABLE `book_table`
   MODIFY `booking_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `cart`
---
-ALTER TABLE `cart`
-  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
@@ -190,17 +153,7 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT for table `register_user`
 --
 ALTER TABLE `register_user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `cart`
---
-ALTER TABLE `cart`
-  ADD CONSTRAINT `cart_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `register_user` (`user_id`);
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

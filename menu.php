@@ -1,4 +1,4 @@
-<?php require "header/nav.php" ?>
+<?php require "aa/navber.php" ?>
 <?php require "config/config.php" ?>
 
     <section class="home-slider owl-carousel">
@@ -375,7 +375,7 @@
     	</div>
     </section>
 
-	<?php require "header/footer.php" ?>
+	<?php require "aa/footer.php" ?>
     
   </body>
 </html>

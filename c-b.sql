@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 28, 2023 at 03:58 PM
+-- Generation Time: Nov 02, 2023 at 02:08 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `coffee-blend`
+-- Database: `c-b`
 --
 
 -- --------------------------------------------------------
@@ -56,18 +56,19 @@ CREATE TABLE `cart` (
   `cart_id` int(11) NOT NULL,
   `prod_name` varchar(200) NOT NULL,
   `prod_description` text NOT NULL,
-  `prod_price` float NOT NULL,
+  `prod_price` float(10,0) NOT NULL,
   `prod_quantity` int(11) NOT NULL,
   `prod_image` varchar(200) NOT NULL,
-  `user_id` int(11) NOT NULL
+  `user_id` int(11) NOT NULL,
+  `prod_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `cart`
 --
 
-INSERT INTO `cart` (`cart_id`, `prod_name`, `prod_description`, `prod_price`, `prod_quantity`, `prod_image`, `user_id`) VALUES
-(1, 'Americano', 'An Americano is made by diluting a shot of espresso with hot water, resulting in a milder coffee with a flavor similar to drip coffee.\r\n', 34.89, 1, 'menu-2.jpg', 14);
+INSERT INTO `cart` (`cart_id`, `prod_name`, `prod_description`, `prod_price`, `prod_quantity`, `prod_image`, `user_id`, `prod_id`) VALUES
+(14, 'Americano', 'An Americano is made by diluting a shot of espresso with hot water, resulting in a milder coffee with a flavor similar to drip coffee.\r\n', 35, 1, 'menu-2.jpg', 14, 2);
 
 -- --------------------------------------------------------
 
@@ -133,7 +134,8 @@ INSERT INTO `register_user` (`user_id`, `user_name`, `user_email`, `user_passwor
 (11, 'Ikram', 'ik@gmail.com', '$2y$10$/J7JpeiTHyWH.Z53kC.fdOuNsRmPgdhdxTfruGBOiyeAoB44zUIo.', '2023-10-07 12:15:16'),
 (12, 'MK1', 'MK1@gmail.com', '$2y$10$.Cv3LcfNJZqDrwJRt3gDYuykvySWGPzWiRzer.cjfSQ/gJFOj3jJi', '2023-10-10 12:17:58'),
 (13, 'Ali', 'Ali@gmail.com', '$2y$10$RuDGQAyURD6Y3FfZM7s80O.X81ltmxe66XetoU75RB7qkA1jt1FQq', '2023-10-17 11:16:04'),
-(14, 'taimoor', 't3@gmail.com', '$2y$10$hgyMHgcBHH0vSptsV8igSeeDnMEsNfKpT8InFBd4FppGviZ7AHkVK', '2023-10-28 13:17:53');
+(14, 'usama', 'usama@gmail.com', '$2y$10$ar6zU.tOV4W5PYCLDRrxUunTZU6CpDgTUwJXActGdm9LIej/kWIo.', '2023-10-28 13:28:17'),
+(15, 'taimoor', 'taimoor1@gmail.com', '$2y$10$gKX0q8jtjtYEtiF.zwsHNOC6N0gc.OcmrPYHMj.ldtngzm672x2CK', '2023-11-02 12:55:33');
 
 --
 -- Indexes for dumped tables
@@ -150,7 +152,8 @@ ALTER TABLE `book_table`
 --
 ALTER TABLE `cart`
   ADD PRIMARY KEY (`cart_id`),
-  ADD KEY `user_id` (`user_id`);
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `prod_id` (`prod_id`);
 
 --
 -- Indexes for table `products`
@@ -178,7 +181,7 @@ ALTER TABLE `book_table`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `products`
@@ -190,7 +193,7 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT for table `register_user`
 --
 ALTER TABLE `register_user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- Constraints for dumped tables
@@ -200,7 +203,8 @@ ALTER TABLE `register_user`
 -- Constraints for table `cart`
 --
 ALTER TABLE `cart`
-  ADD CONSTRAINT `cart_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `register_user` (`user_id`);
+  ADD CONSTRAINT `cart_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `register_user` (`user_id`),
+  ADD CONSTRAINT `cart_ibfk_2` FOREIGN KEY (`prod_id`) REFERENCES `products` (`prod_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

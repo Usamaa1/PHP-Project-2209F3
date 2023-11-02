@@ -1,5 +1,5 @@
-<?php require "header/nav.php" ?>
-<?php require "config/config.php" ?>
+<?php require "aa/navber.php" ?>
+<?php require "config/config.php"?>
 <?php 
 
 if(isset($_POST['appointment'])){
@@ -49,7 +49,7 @@ $product_query = "SELECT * FROM `products`";
 $product_prepare = $connection->prepare($product_query);
 $product_prepare->execute();
 $products_data = $product_prepare->fetchAll(PDO::FETCH_ASSOC);
-print_r($products_data);
+// print_r($products_data);
   
 
 ?>
@@ -462,7 +462,7 @@ print_r($products_data);
 	      </div>
 	    </div>
 	  </section>
-	  <?php require "header/footer.php" ?>
+	  <?php require "aa/footer.php" ?>
 
    
 
